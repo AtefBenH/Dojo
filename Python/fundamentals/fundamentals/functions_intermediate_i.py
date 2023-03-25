@@ -42,7 +42,6 @@ print (z)
 #-----------------------------------------------
 def iterateDictionary(some_list) : 
     for dico in some_list :
-        # print (dico)
         for key, value in dico.items():
             print (f"{key} - {value}", end=", ")
         print("")
