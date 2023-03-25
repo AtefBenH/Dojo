@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojonary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="all">
+    <div class="nav">
+        <h1 class="nav-title">Dojonary</h1>
+        <ul class="nav-elements">
+            <li><input type="text" placeholder="Search" size="40"></li>
+            <li><button class="btn" onclick="updateButton (this)">Login</button></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="left-side">
+            <div class="definition">
+                <div class="noun">
+                    <h2>ninja</h2>
+                    <i>noun</i> 
+                    <p>Plural: <i>ninjas</i></p> <br>
+                    <button class="btn1" onclick="alert('Ninja was liked')">13 Likes</button>
+                </div>
+                <div class="meaning">
+                    <p>A practitioner skilled in the <br>
+                    <a href="#">Japanese</a> art of <a href="#">ninjutsu</a></p>
+                </div>
+            </div>
+            <div class="definition">
+                <div class="noun">
+                    <h2>ninja</h2>
+                    <i>noun</i> 
+                    <p>Plural: <i>ninjas</i></p> <br>
+                    <button class="btn1" onclick="alert('Ninja was liked')">37 Likes</button>
+                </div>
+                <div class="meaning">
+                    <p>A <a href="#">programmer</a> who breaks <br>
+                        down problems with <a href="#">zen</a>-like <br>
+                        focus
+                    </p>
+                </div>    
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="definition">
+                <h3>
+                    <p>Dojonary is <br> 
+                    defined by YOU 
+                    </p>
+                </h3>
+                <br>
+                <button class="btn2" onclick="updateButton (this)">Add Definition</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+/* CSS reset */
+*
+    {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+/* Fixed width container class that will "auto-center" itself */
+.container 
+    {
+        width: 1200px;
+        margin: 0 auto;
+    }
+.btn
+    {
+        width: 160px;
+        padding: 5px;
+        background-color: #1e96fc;
+        color: white;
+        font-family: monospace;
+        font-size: larger;
+        box-shadow: 10px 5px 5px black;
+    }
+.btn:hover 
+    {
+        background-color: rgb(221, 234, 246);
+        color: #1e96fc;
+    }
+.btn:active 
+    {
+        box-shadow: inset -2px -2px 3px rgba(114, 210, 236, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+    }
+.row
+    {   
+        display: flex;
+    }
+.col
+    {
+        flex: 1;
+        padding: 20px;
+        margin: 10px;
+        background-color: #659DA1;
+    }
+.nav
+    {
+        margin: 0px auto;
+        background-color: #FFF1DC;
+        display: flex;
+        height: 50px;
+        width: 900px;
+        justify-content: space-between;
+        align-items: center;
+    }
+.nav-title
+    {
+        margin-left: 15px;
+    }
+.nav-links
+    {
+        display: flex;
+        align-items: center;
+        list-style-type: none;
+        justify-content: space-around;
+        width: 500px;
+    }

@@ -1,0 +1,106 @@
+
+*
+    {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+.all 
+    {
+        width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+body
+    {
+        font-family: cursive;
+        background-color: white;
+    }
+.p-nav
+    {
+        margin: 0px auto;
+        background-color: black;
+        color: whitesmoke;
+        height: 50px;
+        width: 800px;
+    }
+.p-body
+    {
+        display: flex;
+        align-items: flex-start;
+    }
+.left-side, .right-side
+    {
+        margin: 10px;
+        padding: 10px;
+        flex:1;
+    }
+.right-side
+    {
+        flex: 2;
+        /* margin-right: -445px; */
+    }
+.avatar
+    {
+        height: 50px;
+        width: 50px;
+    }
+.user-card
+    {
+        border: 2px solid black;
+        height: 200px;
+        width: 120px;
+        margin-left: -170px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+.btn1, .btn2, .btn3
+    {
+        width: 70px;
+        padding: 5px;
+        background-color: #FFD966;
+        color: black;
+        font-family: monospace;
+        font-size: large;
+        font-weight: bold;
+        box-shadow: 10px 5px 5px black;
+        margin-right: 10px;
+    }
+.user-card h2
+    {
+        margin-left: 5px;
+        font-size: large;
+    }
+.btn1:hover, .btn2:hover, .btn3:hover 
+    {
+        background-color: black;
+        color: #FFD966;
+    }
+.btn1:active, .btn2:active, .btn3:active  
+    {
+        box-shadow: inset -2px -2px 3px rgba(114, 210, 236, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+    }
+.container
+    {
+        border: 2px solid black;
+        width: 400px;
+        margin: 10px;
+    }
+.top
+    {
+        padding: 0px 20px;
+        margin: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+.content
+    {
+        padding: 0px 20px;
+        margin-bottom: 10px;
+    }

@@ -1,0 +1,45 @@
+*
+    {
+        font-family: cursive;
+    }
+.octocat
+    {
+        height: 200px; 
+    }
+h1
+    {
+        margin-top: 0;
+    }
+
+.main
+    {
+        margin: 0px auto;
+        width: 850px;
+        background-color: #D1BEB0;
+        padding: 20px;
+        text-align: center;
+    }
+.row1
+    {
+        background-color: #383F51;
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+        padding: 10px;
+    }
+.row2
+    {
+        background-color: #3C4F76;
+        display: flex;
+        justify-content: space-around;
+        margin: 10px;
+        padding: 10px;
+    }
+.row3
+    {
+        background-color: #DDDBF1;
+        display: flex;
+        justify-content: space-evenly;
+        margin: 10px;
+        padding: 10px;
+    }

@@ -1,0 +1,32 @@
+
+*
+    {
+        font-family: monospace;
+    }
+h1
+    {
+        background-color: black;
+        color: white;
+        text-align: left;
+        font-size: 30pt;
+    }
+h2
+    {
+        background-color: purple;
+        color: white;
+        font-style: italic;
+        text-align: center;
+        font-size: 20pt;
+    }
+h3
+    {
+        background-color: rgb(74, 198, 220);
+        color: black;
+        text-decoration: underline;
+        text-align: right;
+        font-size: 10pt;
+    }
+h1 span
+    {
+        color: aqua;
+    }

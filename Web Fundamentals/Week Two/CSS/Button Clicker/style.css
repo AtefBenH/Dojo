@@ -1,0 +1,159 @@
+/* CSS reset */
+*
+    {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+/* Fixed width container class that will "auto-center" itself */
+.all 
+    {
+        width: 1200px;
+        margin: 0 auto;
+    }
+body
+    {
+        font-family: sans-serif;
+        background-color: white;
+    }
+p   {
+    font-weight: bold;
+}
+.btn
+    {
+        width: 70px;
+        padding: 5px;
+        background-color: #1e96fc;
+        color: white;
+        font-family: monospace;
+        font-size: large;
+        box-shadow: 10px 5px 5px black;
+        border-radius: 25%;
+        margin-right: 10px;
+    }
+.btn:hover 
+    {
+        background-color: rgb(221, 234, 246);
+        color: #1e96fc;
+    }
+.btn:active 
+    {
+        box-shadow: inset -2px -2px 3px rgba(114, 210, 236, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+    }
+.btn1
+    {
+        width: 70px;
+        padding: 5px;
+        background-color: #FFD966;
+        color: black;
+        font-family: monospace;
+        font-size: small;
+        font-weight: bold;
+        box-shadow: 10px 5px 5px black;
+    }
+.btn1:hover 
+    {
+        background-color: black;
+        color: #FFD966;
+    }
+.btn1:active 
+    {
+        box-shadow: inset -2px -2px 3px rgba(114, 210, 236, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+    }
+.btn2
+    {
+        width: 150px;
+        padding: 5px;
+        background-color: #93C47D;
+        color: black;
+        font-family: monospace;
+        font-size: small;
+        font-weight: bold;
+        box-shadow: 10px 5px 5px black;
+    }
+.btn2:hover 
+    {
+        background-color: black;
+        color: #93C47D;
+    }
+.btn2:active 
+    {
+        box-shadow: inset -2px -2px 3px rgba(114, 210, 236, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+    }
+.nav
+    {
+        margin: 0px auto;
+        background-color: #CCCCCC;
+        display: flex;
+        height: 50px;
+        width: 800px;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+.nav-title
+    {
+        margin-left: 15px;
+    }
+.nav-elements
+    {
+        display: flex;
+        align-items: center;
+        list-style-type: none;
+        justify-content: space-between;
+        width: 500px;
+    }
+.container
+    {
+        /* width: 100%;
+        margin: 0px auto; */
+        display: flex;
+        align-items: flex-start;
+    }
+.left-side, .right-side
+    {
+        margin: 10px;
+        padding: 10px;
+        flex:1;
+    }
+.left-side
+    {
+        flex: 2;
+    }
+.right-side .definition
+    {
+        width: 200px;
+        height: 120px;
+        padding: 15px;
+        margin-right: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+.definition
+    {
+        width: 420px;
+        height: 157px;
+        border: 2px solid black;
+        margin-left: 180px;
+        margin-bottom: 15px;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+    }
+.noun
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+        margin-right: 50px;
+    }
+.meaning
+    {
+        display: flex;
+        align-items: center;
+        margin: 10px;
+    }
+
+
