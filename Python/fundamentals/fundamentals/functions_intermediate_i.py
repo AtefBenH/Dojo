@@ -38,22 +38,15 @@ print(sports_directory)
 z[0]["y"] = 30
 print (z)
 
-#2- Iterate Through a List of Dictionaries : Each key-value pair ends up on 2 separate lines
+#2- Iterate Through a List of Dictionaries
 #-----------------------------------------------
 def iterateDictionary(some_list) : 
     for dico in some_list :
         # print (dico)
         for key, value in dico.items():
-            print (f"{key} - {value}")
-
-#2- Iterate Through a List of Dictionaries : Bonus : exact display
-#-----------------------------------------------
-def iterateDictionary1(some_list) : 
-    for i in range(0, len(some_list)):
-        print(f"first_name - {some_list[i]['first_name']}, last_name - {some_list[i]['last_name']}")
-
+            print (f"{key} - {value}", end=", ")
+        print("")
 iterateDictionary(students)
-iterateDictionary1(students)
 
 #3- Get Values From a List of Dictionaries
 #-----------------------------------------------
