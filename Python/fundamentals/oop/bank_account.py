@@ -3,7 +3,7 @@ class BankAccount:
     all_accounts =[] 
 
     #! Constructor
-    def __init__(self, balance = 0, in_rate = 0.01): 
+    def __init__(self, balance = 0, in_rate = 0.02): 
         self.balance = balance
         self.in_rate = in_rate
         BankAccount.all_accounts.append(self)
@@ -39,7 +39,7 @@ class BankAccount:
         else :
             return False
 
-account1= BankAccount(1500, 0.02)
+account1= BankAccount(1500, 0.1)
 account2= BankAccount()
 account1.deposit(2000).deposit(1200).deposit(4400).withdraw(5500).yield_interest().display_account_info()
 account2.deposit(1500).deposit(200).withdraw(500).withdraw(700).withdraw(1500).withdraw(200).yield_interest().display_account_info()
