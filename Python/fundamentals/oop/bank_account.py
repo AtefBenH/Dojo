@@ -3,10 +3,9 @@ class BankAccount:
     all_accounts =[] 
 
     #! Constructor
-    def __init__(self, balance = 0, in_rate = 0.02, type = "Checking"): 
+    def __init__(self, balance = 0, in_rate = 0.02): 
         self.balance = balance
         self.in_rate = in_rate
-        self.type = type
         BankAccount.all_accounts.append(self)
 
     def deposit(self, amount):
