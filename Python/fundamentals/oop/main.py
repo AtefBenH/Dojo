@@ -1,4 +1,3 @@
-from bank_account import BankAccount
 from user import User
 
 user1 = User ("Walter White", "walter_white@gmail.com")
