@@ -79,7 +79,7 @@ class SLList :
     def insert_at(self, value, position) : 
         # edge case : if the position is not an integer
         if type(position) != int :
-            print("insert_at() needs and int as a position")
+            print("insert_at() needs an integer as a position")
             return self
         # edge case : if the position is negativ or greater than the lenght of the list
         if (position > self.len) or (position < 0) :
