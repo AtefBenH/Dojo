@@ -13,7 +13,6 @@ class DLList :
             self.len+=1
             self.head = new_node
             self.tail = new_node
-            return self
         #List not empty
         else :
             new_node = DLNode(value)
@@ -22,7 +21,8 @@ class DLList :
             pointer.next = new_node
             new_node.prev = self.tail
             self.tail = new_node
-            return self
+        
+        return self
     
     def print_values (self) :
         pointer = self.head
