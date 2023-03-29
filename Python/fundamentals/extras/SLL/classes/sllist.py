@@ -68,7 +68,7 @@ class SLList :
                 return pointer.value
             before = pointer # We are saving the node before the next node, it's actually the current node
             pointer = pointer.next
-        #if the node is in the middle 
+        #if the node is in the back 
         if pointer.value == value :
             self.len = self.len - 1 #decrementing the lenght 
             return self.remove_from_back()
