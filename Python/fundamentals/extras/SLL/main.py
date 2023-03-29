@@ -30,7 +30,7 @@ print("-------------------------------------------")
 print(f"the lenght of the list is : {my_list.len}")
 print("-------------------------------------------")
 # Remove the first node with the given value
-value = "Atef"
+value = "Name is"
 print(f"----------- This is the he new S_L_list after removing  : {value} -----------")
 my_list.remove_val(value)
 my_list.print_values()
@@ -38,7 +38,7 @@ print("-------------------------------------------")
 print(f"the lenght of the list is : {my_list.len}")
 print("-------------------------------------------")
 #Insert a value at the nth position
-my_list.insert_at("007", -11)
+my_list.insert_at("007", 1)
 my_list.print_values()
 print("-------------------------------------------")
 print(f"the lenght of the list is : {my_list.len}")

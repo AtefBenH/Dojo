@@ -74,6 +74,7 @@ class SLList :
             return self.remove_from_back()
         # edge case : if the "Value" doesn't exist in the list
         print(f"Nothing to remove, there is no {value} in the list")
+        return self
     
     def insert_at(self, value, position) : 
         # edge case : if the position is not an integer
