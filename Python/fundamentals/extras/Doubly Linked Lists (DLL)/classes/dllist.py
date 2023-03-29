@@ -21,7 +21,6 @@ class DLList :
             pointer.next = new_node
             new_node.prev = self.tail
             self.tail = new_node
-        
         return self
     
     def print_values (self) :
