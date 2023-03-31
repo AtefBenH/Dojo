@@ -37,16 +37,16 @@ class DLList :
             new_node.next = self.head
             self.head = new_node
         return self
+    #insert a value at a certain position
     def insert_value_at (self, value, position) :
-        if position == 0 :
+        if position == 0 : #if position is the head of the list
             self.add_to_front(value)
             return self
-        elif position == self.len:
+        elif position == self.len: #if position is the tail of the list
             self.add_to_back(value)
             return self
-        else :
+        else : #if position is in the middle of the list
             pointer = self.head
-            # before = pointer
             for i in range (0, self.len) :
                 if i == position :
                     new_node = DLNode(value)
@@ -83,7 +83,7 @@ class DLList :
             self.len-=1
             print("Front node deleted")
             return self
-        
+        #If the value is in the middle of the list
         while (pointer!= None) :
             if (pointer.value == value):
                 pointer = pointer.next
