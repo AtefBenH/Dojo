@@ -8,7 +8,7 @@ class DLList :
 
     def add_to_back(self, value) :
         #If the list is empty
-        if self.head == None :
+        if self.head == None : # Or, self.len == 0
             new_node = DLNode(value)
             self.len+=1
             self.head = new_node
@@ -20,9 +20,50 @@ class DLList :
             pointer = self.tail
             pointer.next = new_node
             new_node.prev = self.tail
+            new_node.next = None
             self.tail = new_node
         return self
+    
+    def add_to_front(self, value) :
+        #If the list is empty
+        if  self.len == 0 : # Or, self.head == None
+            self.add_to_back(value)
+        #List not empty
+        else :
+            new_node = DLNode(value)
+            self.len+=1
+            pointer = self.head
+            pointer.prev = new_node
+            new_node.next = self.head
+            self.head = new_node
+        return self
+    def insert_value_at (self, value, position) :
+        if position == 0 :
+            self.add_to_front(value)
+            return self
+        elif position == self.len:
+            self.add_to_back(value)
+            return self
+        else :
+            pointer = self.head
+            # before = pointer
+            for i in range (0, self.len) :
+                if i == position :
+                    new_node = DLNode(value)
+                    self.len+=1
+                    before.next = new_node
+                    new_node.next = pointer
+                    pointer.prev = new_node
+                    new_node.prev = before
+                    return self
+                else :
+                    before = pointer
+                    pointer = pointer.next
+            print(f"Position : {position} is out of range, the length of the list is : {self.len}")
+            return self
+        
 
+        
     def delete_node(self, value):
         #If the value is the last one in the list
         pointer = self.tail
@@ -46,21 +87,22 @@ class DLList :
         while (pointer!= None) :
             if (pointer.value == value):
                 pointer = pointer.next
-                last.next = pointer
-                pointer.prev = last
+                before.next = pointer
+                pointer.prev = before
                 self.len-=1
                 print("Node in the middle deleted")
                 return self
-            last = pointer
+            before = pointer
             pointer = pointer.next
         print(f"Nothing to remove, the element : {value} doesn't exist")
         return self
     def print_values (self) :
         pointer = self.head
-        if pointer != None :
-            while (pointer != None) :
-                print(pointer.value)
-                pointer = pointer.next
+        if self.len != 0 :
+            if pointer != None :
+                while (pointer != None) :
+                    print(pointer.value)
+                    pointer = pointer.next
         else :
             print ("Empty List")
         return self
