@@ -7,4 +7,5 @@ dllist.insert_value_at(0, 0).insert_value_at("Zéro", 0).insert_value_at("First"
 print(f"List's length : {dllist.len}")
 dllist.insert_value_at("Last Element",10).print_values()
 print(f"List's length : {dllist.len}")
-dllist.delete_node(0).delete_node("First").print_values()
+dllist.delete_node("Zéro").delete_node(0).add_to_front("First Element").print_values()
+print(f"List's length : {dllist.len}")
