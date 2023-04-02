@@ -1,4 +1,10 @@
-arr = [0, 14, 11, 9, 6, 5, 3, 1, 8, 7, 2, 4]
+import unittest
+class InsertionSort(unittest.TestCase) :
+    def testOne(self): 
+        self.assertEqual(insertion_sort([3,1,2,5,4]), [1,2,3,4,5])
+    def testTwo(self):
+        self.assertEqual(insertion_sort([7,3,4,1,8,9]), [1,3,4,7,8,9])
+
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         element = arr[i]
@@ -9,4 +15,5 @@ def insertion_sort(arr):
         arr[j + 1] = element
     return arr
 
-print (insertion_sort(arr))
+if __name__ == "__main__" :
+    unittest.main()
