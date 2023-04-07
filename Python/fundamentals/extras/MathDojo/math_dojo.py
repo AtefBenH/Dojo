@@ -12,7 +12,7 @@ class MathDojo:
         self.result -= num
         for num in nums :
             self.result-= num
-            return self
+        return self
     
 class AddTests (unittest.TestCase) :
     def testOne(self) :
