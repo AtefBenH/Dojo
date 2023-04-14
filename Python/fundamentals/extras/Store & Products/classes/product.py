@@ -1,6 +1,8 @@
 class Product:
-    def __init__(self, id, name, category, price) :
-        self.id = id
+    count = 0
+    def __init__(self, name, category, price) :
+        self.id = Product.count
+        Product.count+=1
         self.name = name
         self.price = price
         self.category = category
@@ -12,5 +14,5 @@ class Product:
             self.price -= self.price*percent_change
     
     def print_info(self):
-        print(f"Product name : {self.name} | Category : {self.category} | Price : {self.price}")
+        print(f"Product id : {self.id} Product name : {self.name} | Category : {self.category} | Price : {self.price}")
     

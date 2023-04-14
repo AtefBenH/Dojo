@@ -1,4 +1,4 @@
-from classes.dlnode import DLNode
+from dlnode import DLNode
 
 class DLList :
     def __init__(self):

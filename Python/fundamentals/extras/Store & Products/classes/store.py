@@ -10,6 +10,9 @@ class Store :
     def sell_product(self, id) :
         for index, product in enumerate(self.product_list) :
             if product.id == id :
+                print("Produit Vendu :-----------------------------------------------")
+                product.print_info()
+                print("--------------------------------------------------------------")
                 self.product_list.pop(index)
         return self
 
