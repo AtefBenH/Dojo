@@ -7,10 +7,15 @@
     <title>Hello Times</title>
 </head>
 <body>
+    <h1>My Flask Templates</h1>
     <h2>{{ name }}</h2>
     <p>{{ times }}</p>
     {% for i in range (times) : %}
         <p>Hello {{ name }}</p>
     {% endfor %}
+    {% if name == "Atef" : %}
+        <p>Welcome Boss</p>
+    {% endif %}
+
 </body>
 </html>
