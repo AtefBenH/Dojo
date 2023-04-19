@@ -24,7 +24,7 @@ def say(name):
 
 @app.route('/repeat/<int:times>/<name>')
 def repeat(times, name):
-    return f'Hi {name} <br>' *times
+    return render_template("hello.html", times=times, name=name)
         
 
 #Catches any route other than the ones specified
