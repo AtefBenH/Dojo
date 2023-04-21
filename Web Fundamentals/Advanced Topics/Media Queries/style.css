@@ -1,0 +1,47 @@
+.navbtn 
+    {
+        width: 200px;
+        height: 200px;
+    }
+@media screen and (max-width: 480px)
+    {
+        .navbtn 
+            {
+                background-color: yellow;
+            }
+        .display
+            {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+    }
+@media screen and (min-width: 481px)
+    {
+        .navbtn 
+            {
+                background-color: red;
+            }
+        .display
+            {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+    }
+@media screen and (min-width: 1024px)
+    {
+        .navbtn 
+            {
+                background-color: blue;
+            }
+        .display
+            {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+    }
