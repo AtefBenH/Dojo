@@ -8,12 +8,24 @@
     <title>Counter</title>
 </head>
 <body>
-    <div class="container p-5">
-        <h1>Counter</h1>
-        <p>10</p>
-        <button type="button" class="btn btn-success" >Click</button>
-        <button type="button" class="btn btn-danger" >Reset</button>
+    <div class="container text-center p-5 my-5">
+        <!-- Display Cookies Information -->
+        <!-- <h1>Cookies Decoding :</h1>
+        <h3>1st Cookie: {{res1}}</h3>
+        <h3>2nd Cookie: {{res2}}</h3> -->
+        <h1 class="text-primary">Counter</h1>
+        <h3 class="text-cener text-dark">Total Count : {{session['count']}}</h3>
+        <h3 class="text-center text-dark">Real Count : {{session['count']-session['fake_count']}}</h3>
+        <form action='/add_more' method='post'>
+            <input type="text" class="m-2" name="num" value="1" oninput="getValue(this)">
+            <div>
+                <button type="submit" class="btn btn-success">Add <span id="add">1</span> View(s)</button>
+                <a href="/destroy_session" class="btn btn-danger">Reset</a>
+            </div>
+        </form>
+        
     </div>
+    <script src="/static/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>
