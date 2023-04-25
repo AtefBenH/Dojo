@@ -23,6 +23,7 @@
             {% if 'guess' in session %}
                 {% if session['count'] < 5 %}
                     {% if session['guess'] == session['number'] %}
+                        
                         <div class="box card m-lg-3 bg-success d-flex align-content-center justify-content-center">
                             <form action="/reset" method="POST">
                                 <h3>Good Guess!</h3>
@@ -44,6 +45,20 @@
                         </div>
                     {% endif%}
                 {% else %}
+                    {% if session['guess'] == session['number'] %}
+                            
+                    <div class="box card m-lg-3 bg-success d-flex align-content-center justify-content-center">
+                        <form action="/reset" method="POST">
+                            <h3>Good Guess!</h3>
+                            <h5 class="text-light">Attempt(s) = {{ session['count'] }}</h5>
+                            <label for="first_name">First Name :</label>
+                            <input type="text" name ="first_name">
+                            <label for="lqst_name">Last Name  :</label>
+                            <input type="text" name ="last_name">
+                            <button type="submit" class="btn btn-outline-warning m-1">Play Again</button>
+                        </form>
+                    </div>
+                    {% else %}
                         <div class="box card m-lg-3 bg-danger d-flex align-content-center justify-content-center">
                             <form action="/reset" method="get">
                                 <h3>You Lose</h3>
@@ -51,11 +66,12 @@
                                 <button type="submit" class="btn btn-outline-dark m-1">Try Again</button>
                             </form>
                         </div>
+                    {% endif %}
                 {% endif %}
             {% endif %}
         </div>
         <div class="container flex justify-center col-6 mx-auto text-center">
-            <a href="/winners" class="btn btn-info">Winners Leaderboard </a>
+            <a href="/winners" class="btn btn-info" target="_blank">Winners Leaderboard </a>
         </div>
     </div>
 
