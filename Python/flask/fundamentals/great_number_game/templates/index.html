@@ -33,11 +33,11 @@
                         <div class="box card m-lg-3 bg-success d-flex align-content-center justify-content-center">
                             <form action="/reset" method="POST">
                                 <h3>Good Guess!</h3>
-                                <p>The number was {{ session['number'] }}</p>
-                                <h5 class="text-light">Attempt(s) = {{ session['count'] }}</h5>
-                                <label for="first_name">First Name :</label>
+                                <p class="bg-black text-light fst-italic">The number was {{ session['number'] }}</p>
+                                <h5 class="bg-light text-dark">Attempt(s) = {{ session['count'] }}</h5>
+                                <label for="first_name" class="text-warning">First Name :</label>
                                 <input type="text" name ="first_name">
-                                <label for="lqst_name">Last Name  :</label>
+                                <label for="last_name" class="text-warning">Last Name  :</label>
                                 <input type="text" name ="last_name">
                                 <button type="submit" class="btn btn-outline-warning m-1">Play Again</button>
                             </form>
@@ -47,7 +47,7 @@
                             <h3>Too High</h3>
                         </div>
                     {% else %}
-                        <div class="box card m-lg-3 bg-secondary d-flex align-content-center justify-content-center">
+                        <div class="box card m-lg-3 bg-secondary-subtle d-flex align-content-center justify-content-center">
                             <h3>Too Low</h3>
                         </div>
                     {% endif%}
