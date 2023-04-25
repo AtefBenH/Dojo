@@ -12,12 +12,18 @@
 <body>
     <div class="container flex justify-center col-6 mx-auto text-center">
         <h3 class="p-3">Welcome to the Great Number Game</h3>
-        <p class="pb-3">I am thinking of a number betwenn 1 and 100 <br> Take a guess </p>
+        <p class="pb-3">I am thinking of a number betwenn 1 and 100</p>
         <form action="/guess" method="post">
-            <input id="guess" type="text" name="guess" size="10px">
-            <div class="p-3">
-                <button type="submit" class="btn btn-primary" onclick="checkValue()">Guess</button>
+            <div class="form-group w-50 flex justify-center mx-auto text-center bg-secondary text-warning m-2">
+                <div class="p-1 fw-bold fs-6 fst-italic">
+                    <label for="guess">Take a guess!!!</label>
+                </div>
+                <input id="guess" type="text" name="guess">
+                <div class="p-3">
+                    <button type="submit" class="btn btn-warning" onclick="checkValue()">Guess</button>
+                </div>
             </div>
+            
         </form>
         <div class="container flex justify-center col-6 mx-auto text-center">
             {% if 'guess' in session %}
@@ -27,6 +33,7 @@
                         <div class="box card m-lg-3 bg-success d-flex align-content-center justify-content-center">
                             <form action="/reset" method="POST">
                                 <h3>Good Guess!</h3>
+                                <p>The number was {{ session['number'] }}</p>
                                 <h5 class="text-light">Attempt(s) = {{ session['count'] }}</h5>
                                 <label for="first_name">First Name :</label>
                                 <input type="text" name ="first_name">
@@ -46,14 +53,14 @@
                     {% endif%}
                 {% else %}
                     {% if session['guess'] == session['number'] %}
-                            
                     <div class="box card m-lg-3 bg-success d-flex align-content-center justify-content-center">
                         <form action="/reset" method="POST">
                             <h3>Good Guess!</h3>
-                            <h5 class="text-light">Attempt(s) = {{ session['count'] }}</h5>
-                            <label for="first_name">First Name :</label>
+                            <p class="bg-black text-light fst-italic">The number was {{ session['number'] }}</p>
+                            <h5 class="bg-light text-dark">Attempt(s) = {{ session['count'] }}</h5>
+                            <label for="first_name" class="text-warning">First Name :</label>
                             <input type="text" name ="first_name">
-                            <label for="lqst_name">Last Name  :</label>
+                            <label for="last_name" class="text-warning">Last Name  :</label>
                             <input type="text" name ="last_name">
                             <button type="submit" class="btn btn-outline-warning m-1">Play Again</button>
                         </form>

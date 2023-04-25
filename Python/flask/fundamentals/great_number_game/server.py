@@ -13,7 +13,7 @@ def index():
     if 'winners' not in session:
         session['winners']=[]
     # Print Tests
-    # print(session['number'])
+    print(session['number'])
     # print(session['count'])
     return render_template('index.html')
 
