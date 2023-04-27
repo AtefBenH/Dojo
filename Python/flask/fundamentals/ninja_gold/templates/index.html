@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Money</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container m-5 px-5 flex justify-centercol-12 mx-auto">
+        <nav class="navbar navbar-expand-lg mb-3" style="background-color: #e3f2fd;">
+            <div class="container-fluid">
+                <img src="/static/img/ninja-saga-achievement-logo-gold-trophy-wallpaper-png-clipart.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top me-2">
+                <a class="navbar-brand" href="#">Ninja Gold</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active ms-5" aria-current="page" href="#">Rules</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex mt-2 me-2 text-warning fw-medium">
+                        <label class="mb-3">Your Gold :</label>
+                        <div class="ms-3">{{ session['gold'] }}</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="row text-center ">
+            <div class="col">
+                <div class="card" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Farm</h5>
+                        <p class="card-text">(Earns 10-20 Golds)</p>
+                        <form action="/process_money" method="post">
+                            <input type="hidden" name="building" value="farm" />
+                            <input type="submit" class=" btn btn-sm btn-outline-primary" value="Find Gold!" onclick="checkMoves()"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Cave</h5>
+                        <p class="card-text">(Earns 5-10 Golds)</p>
+                        <form action="/process_money" method="post">
+                            <input type="hidden" name="building" value="cave" />
+                            <input type="submit" class="btn btn-sm btn-outline-primary" value="Find Gold!" onclick="checkMoves()"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">House</h5>
+                        <p class="card-text">(Earns 2-5 Golds)</p>
+                        <form action="/process_money" method="post">
+                            <input type="hidden" name="building" value="house" />
+                            <input type="submit" class="btn btn-sm btn-outline-primary" value="Find Gold!" onclick="checkMoves()"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Casino</h5>
+                        <p class="card-text">(Earns/Takes 0-50 Golds)</p>
+                        <form action="/process_money" method="post">
+                            <input type="hidden" name="building" value="casino" />
+                            <input type="submit" class="btn btn-sm btn-outline-primary" value="Find Gold!" onclick="checkMoves()"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if session ['moves'] < 15 %}
+            {% if session['gold'] >= 500 %}
+                <div class="text-center">
+                    <h3 class="mt-3">You Win</h3>
+                    <form class="py-3" action="/" method="post">
+                        <input type="submit" class="btn btn-md btn-outline-danger" value="Reset Game"/>
+                    </form>
+                </div>
+            {% endif %}
+        {% elif session ['moves'] == 15%}
+            {% if session['gold'] >= 500 %}
+                <div class="text-center">
+                    <h3 class="mt-3">You Win</h3>
+                    <form class="py-3" action="/" method="post">
+                        <input type="submit" class="btn btn-md btn-outline-danger" value="Reset Game"/>
+                    </form>
+                </div>
+            {% else %}
+                <div class="text-center">
+                    <h3 class="mt-3">You Lose</h3>
+                    <form class="py-3" action="/" method="post">
+                        <input type="submit" class="btn btn-md btn-outline-danger" value="Reset Game"/>
+                    </form>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="text-center">
+                <h3 class="mt-3">You Lose</h3>
+                <form class="py-3" action="/" method="post">
+                    <input type="submit" class="btn btn-md btn-outline-danger" value="Reset Game"/>
+                </form>
+            </div>
+        {% endif %}
+        <!-- Scrollable modal -->
+        <div class="text-center">
+            <label class="my-3">Activities :</label>
+            <div class="overflow-auto" style="height: 10rem;">
+                {% for activity in session['activities'][::-1] %}
+                    {{ activity|safe }}
+                {% endfor %}
+            </div> 
+        </div> 
+    </div>
+    
+    <script src="static/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</body>
+</html>
