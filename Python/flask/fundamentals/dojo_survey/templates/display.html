@@ -11,7 +11,7 @@
     <div class="container m-5 p-5 flex justify-center col-6 mx-auto ">
         <!-- <div class="card bg-dark">
             <div class="card-body">                     -->
-                <h4 class="text-decoration-underline text-info"> Submitted Info</h4>
+                <h4 class="text-decoration-underline text-dark-emphasis mb-3"> Submitted Info</h4>
                 <table class="table table-bordered text-dark table-hover table-striped" >
                     <tr>
                         <th>Name</th>
@@ -32,10 +32,10 @@
                     <tr>
                         <th>Hobbies</th>
                         <td>
-                            <table>
-                                <tr>
+                            <table class="table table-bordered">
+                                <tr class="bg-light fs-6 fst-italic text-warning-emphasis">
                                     {% for hobby in session['hobbies']%}
-                                        <td> |({{hobby}})| </td>
+                                        <td> {{hobby}} </td>
                                     {% endfor %}
                                 </tr>
                             </table>
@@ -46,7 +46,7 @@
                         <td>{{session['comment']}}</td>
                     </tr>
                 </table>
-                <a href="/" type="button" class="btn btn-outline-info">Go Back</a>
+                <a href="/" type="button" class="btn btn-outline-warning">Go Back</a>
             <!-- </div>
         </div> -->
     </div>
