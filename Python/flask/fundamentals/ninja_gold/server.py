@@ -69,9 +69,6 @@ def process_money():
             return handler()
         else:
             return ('Unknown Form')
-        
-    return redirect('/')
-    
 
 
 
