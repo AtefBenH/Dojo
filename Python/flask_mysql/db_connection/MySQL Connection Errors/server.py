@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect
 from user import User
 app = Flask(__name__)
 
+@app.route('/')
+def go_index():
+    return redirect('/users')
 #Read ALL
 @app.route("/users")
 def index():
