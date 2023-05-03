@@ -1,4 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash, request, redirect
 
 class User:
     def __init__(self, data):
@@ -9,8 +10,23 @@ class User:
         self.updated_at = data['updated_at']
         self.friends = []
 
+    #Validation method
+    @staticmethod
+    def validate_user(user):
+        is_valid = True # we assume this is true
+        if len(user['first_name']) < 3:
+            flash("First Name must be at least 3 characters.")
+            is_valid = False
+        if len(user['last_name']) < 3:
+            flash("Last Name must be at least 3 characters.")
+            is_valid = False
+        return is_valid
+
     @classmethod
     def save(cls, data):
+        if not User.validate_user(request.form):
+            # redirect to the route where the user form is rendered.
+            return redirect('/')
         query = "INSERT INTO users (first_name, last_name) VALUES (%(first_name)s, %(last_name)s);"
         return connectToMySQL('friendships').query_db(query, data)
     
