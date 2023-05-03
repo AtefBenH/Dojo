@@ -15,15 +15,22 @@ class User:
         return connectToMySQL('friendships').query_db(query, data)
     
     @classmethod
+    def add_friendship(cls, data):
+        query = "INSERT INTO friendships (user_id, friend_id) VALUES (%(user_id)s, %(friend_id)s);"
+        return connectToMySQL('friendships').query_db(query , data)
+    
+    @classmethod
     def get_all_users(cls):
         query = "SELECT * FROM users;"
         return connectToMySQL('friendships').query_db(query)
     
     @classmethod
     def get_all_friendships(cls):
-        query = "SELECT concat(users.first_name, ' ', users.last_name) AS user, group_concat(users1.first_name, ' ', users1.last_name SEPARATOR ', ') AS friend FROM users JOIN friendships ON friendships.user_id = users.id JOIN users AS users1 ON friendships.friend_id = users1.id Group By users.id;"
+        # query = "SELECT concat(users.first_name, ' ', users.last_name) AS user, group_concat(users1.first_name, ' ', users1.last_name SEPARATOR ', ') AS friend FROM users JOIN friendships ON friendships.user_id = users.id JOIN users AS users1 ON friendships.friend_id = users1.id Group By users.id;"
+        query = "select * from users join friendships on friendships.user_id = users.id join users as users1 on friendships.friend_id = users1.id;"
         return connectToMySQL('friendships').query_db(query)
     
+    #Get all the friends of a given user
     @classmethod
     def get_user_with_friends(cls, data):
         query = "SELECT * FROM users LEFT JOIN friendships ON friendships.user_id = users.id LEFT JOIN users AS users1 ON friendships.friend_id = users1.id WHERE users.id = %(id)s;"
@@ -40,8 +47,19 @@ class User:
             }
             user.friends.append(cls(friend_data))
         return user
-    
+
+    #Get all users that are not friend with a given user
     @classmethod
-    def add_friendship(cls, data):
-        query = "INSERT INTO friendships (user_id, friend_id) VALUES (%(user_id)s, %(friend_id)s);"
+    def get_user_non_friend(cls, data):
+        query = """
+            SELECT user1.id, user1.first_name, user1.last_name 
+            FROM users user1 
+            LEFT JOIN friendships f1 ON user1.id = f1.user_id AND f1.friend_id = %(id)s 
+            LEFT JOIN friendships f2 ON user1.id = f2.friend_id AND f2.user_id = %(id)s 
+            WHERE f1.friend_id IS NULL AND f2.user_id IS NULL AND user1.id != %(id)s ;
+        """
         return connectToMySQL('friendships').query_db(query , data)
+    
+    
+    
+    

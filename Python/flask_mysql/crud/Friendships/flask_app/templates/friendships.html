@@ -22,8 +22,8 @@
                     <tbody>
                         {% for friendship in friendships %}
                             <tr>
-                                <td> {{ friendship.user }} </td>
-                                <td> {{ friendship.friend }}</td>
+                                <td> {{ friendship.first_name }} {{ friendship.last_name }}</td>
+                                <td> {{ friendship ['users1.first_name'] }} {{ friendship ['users1.last_name'] }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -47,7 +47,7 @@
                     <div>
                         <label class="form-label my-2" for="name">User :</label>
                     </div>
-                    <select class="form-select" aria-label=".form-select-sm example" name="user_id">
+                    <select class="form-select" aria-label=".form-select-sm example" name="user_id" id="user">
                         {% for user in users %}
                             <option value={{user.id}}>{{user.first_name}} {{user.last_name}}</option>
                         {% endfor %}
@@ -55,7 +55,7 @@
                     <div>
                         <label class="form-label my-2" for="name">Friend :</label>
                     </div>
-                    <select class="form-select" aria-label=".form-select-sm example" name="friend_id">
+                    <select class="form-select" aria-label=".form-select-sm example" name="friend_id" id="friend">
                         {% for user in users %}
                             <option value={{user.id}}>{{user.first_name}} {{user.last_name}}</option>
                         {% endfor %}
@@ -67,5 +67,6 @@
             </div>
         </div>
     <!-- </div> -->
+    
 </body>
 </html>
