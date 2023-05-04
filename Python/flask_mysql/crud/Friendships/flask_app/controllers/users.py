@@ -10,7 +10,7 @@ def index():
 def friendships():
     users = User.get_all_users()
     friendships = User.get_all_friendships()
-    # unfriends = User.get_user_non_friend({'id' : 1})
+    # unfriends = User.get_user_non_friend({'id' : 2})
     # print('@'*30, friendships, '@'*30)
     return render_template('friendships.html', users = users, friendships = friendships)
 

@@ -11,7 +11,7 @@
     {% if 'email' in session %}
     <div class="border border-3 border-black w-25 flex justify-center mx-auto fw-semibold text-start bg-success text-dark m-5 p-3">
         {{session ['email']}} is a valid email address, Thank You.
-        {{ session.clear() }}
+        <span class="text-success">{{ session.clear() }}</span>
     </div>
     {% endif %}
     <div class="w-75 flex justify-center mx-auto fw-medium text-start m-5 p-3">
