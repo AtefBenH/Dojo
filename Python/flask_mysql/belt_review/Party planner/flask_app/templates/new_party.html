@@ -9,15 +9,13 @@
 </head>
 <body>
     <div class="container-fluid m-5">
-        <div class="row m-2">
-            <div class="col-8">
-                <h1>Add a Party</h1>
-            </div>
-            <div class="col-4">
-                <a href="/dashboard" class="btn btn-warning btn-lg">Home</a>
+        <div class="d-flex justify-content-between m-5">
+            <h1>Add a Party</h1>
+            <div>
+                <a href="/dashboard" class="btn btn-success btn-md">Home</a>
             </div>
         </div>
-        <div>
+        <div class="m-5">
             <form action="/parties/create" method="post" class="row text-center p-3">
                 <div class="col-6">
                     <div class="form-group">
@@ -46,7 +44,9 @@
                         <textarea name="description" id="" cols="90" rows="10"  class="form-control"></textarea>
                     </div>
                 </div>
-                <button class="btn btn-success btn-md">Add Party</button>
+                <div class="col-6 m-2">
+                    <button class="btn btn-success btn-md">Add a Party</button>
+                </div>
             </form> 
         </div>
     </div>

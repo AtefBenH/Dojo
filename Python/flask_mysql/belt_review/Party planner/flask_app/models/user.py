@@ -15,6 +15,21 @@ class User :
         self.updated_at = data['updated_at']
 
     # =====================Validations=====================
+    @staticmethod
+    def verify_password(str):
+        upper_in = False
+        number_in = False
+        
+        for char in str:
+            if char.isupper():
+                upper_in = True
+            if char.isdigit():
+                number_in = True
+        
+        if upper_in and number_in:
+            return True
+        else:
+            return False
 
     @staticmethod
     def validate(data):
@@ -31,12 +46,15 @@ class User :
         elif User.get_by_email({'email':data['email']}):
             is_valid = False
             flash("Email Already Exists","register")
-        if len(data['password'])<8:
+        if len(data['password']) <8:
             is_valid = False
-            flash("Password must contain at least 8 characters","register")
+            flash("Password Must Have More Than 8 Characters", "register")
+        elif not User.verify_password(data['password']) :
+            is_valid = False
+            flash("Password Must Contain At Least A Number And An Uppercase Character", "register")
         elif data['password']!= data['confirm_password']:
             is_valid = False
-            flash("Password and Confirmation password doesn't match","register")
+            flash("Password and Confirmation Doesn't Match", "register")
         return is_valid
 
     # =======================Queries=======================
