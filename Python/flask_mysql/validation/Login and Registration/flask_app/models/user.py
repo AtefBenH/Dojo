@@ -9,6 +9,7 @@ class User:
         self.id = data['id']
         self.first_name = data['first_name']
         self.last_name = data['last_name']
+        self.birthday = data['birthday']
         self.email = data['email']
         self.password = data['password']
         self.created_at = data['created_at']
@@ -30,7 +31,6 @@ class User:
         else:
             return False
 
-
     @staticmethod
     def validate(user):
         is_valid = True
@@ -47,6 +47,10 @@ class User:
             is_valid = False
         elif not user['last_name'].isalpha():
             flash("Last Name Must Be Only Letters.", "Register")
+            is_valid = False
+        #Birthday Validation
+        if user['birthday'] == "" :
+            flash("Must Pick a Birthday Date.", "Register")
             is_valid = False
         #Email Validation
         if len(user['email']) <1:
@@ -74,8 +78,8 @@ class User:
     @classmethod
     def add(cls, data):
         query = """
-            INSERT INTO users (first_name, last_name, email, password) 
-            VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s);
+            INSERT INTO users (first_name, last_name, birthday, email, password) 
+            VALUES (%(first_name)s, %(last_name)s, %(birthday)s, %(email)s, %(password)s);
         """
         return connectToMySQL(DATABASE).query_db(query, data)
     
