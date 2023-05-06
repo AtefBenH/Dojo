@@ -59,7 +59,7 @@ class Message:
             WHERE u1.id = %(id)s;
         """
         results = connectToMySQL(DATABASE).query_db(query, data)
-        print('-'*30, results, "-"*30)
+        # print('-'*30, results, "-"*30)
         for row in results :
             # print('#'*30, row, "#"*30)
             # print('-'*30, cls(row), "-"*30)

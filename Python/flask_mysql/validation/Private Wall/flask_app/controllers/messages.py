@@ -10,7 +10,7 @@ def create_message():
         if request.form['receiver_id'] == "All":
             all = User.get_except({'id':session['user_id']})
             for receiver in all :
-                print("*"*30, receiver, '#'*30)
+                # print("*"*30, receiver, '#'*30)
                 data = {
                     **request.form, 
                     'sender_id' : session['user_id'],
@@ -34,7 +34,8 @@ def delete(message_id):
             return redirect('/dashboard')
     User.add_warning({'id' : session['user_id']})
     hacker = User.get_by_id({'id' : session['user_id']})
-    print('!'*30, hacker, '!'*30)
+    # print('!'*30, hacker, '!'*30)
     if hacker.warning < 2 :
-        return render_template('danger.html', hacker = hacker, message_id = message_id)
+        ip_address = request.remote_addr
+        return render_template('danger.html', hacker = hacker, message_id = message_id, ip_address=ip_address)
     return redirect ('/logout')
