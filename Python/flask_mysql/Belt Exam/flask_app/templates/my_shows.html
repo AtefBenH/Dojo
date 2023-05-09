@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tv Shows</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid m-5 px-5 flex justify-center col-10 mx-auto">
+        <div class="d-flex justify-content-between m-5">
+            <h1>{{user.first_name}}'s Tv Shows !</h1>
+            <div>
+                <a href="/dashboard" class="btn btn-primary btn-md">TV Shows</a>
+            </div>
+        </div>
+        <div class="m-5">
+            <table class="table table-striped table-bordered text-center">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Network</th> 
+                        <th>Release Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for show in all_shows %}
+                    <tr>
+                        <th> {{ show.title }} </th>
+                        <th> {{ show.network }} </th>
+                        <th> {{ show.release_date }}</th>
+                        </th>
+                        <th> 
+                            <div class="d-flex justify-content-evenly">
+                                <a href="/shows/{{show.id}}" class="btn btn-sm btn-secondary">Show</a>
+                                <a href="/shows/{{show.id}}/edit" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="/shows/{{show.id}}/delete" class="btn btn-sm btn-danger">Delete</a>
+                            </div>
+                            
+                        </th>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
