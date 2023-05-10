@@ -21,7 +21,7 @@ class Show :
         if len(data['title'])<3:
             is_valid = False
             flash("Title must be at least 3 characters","show")
-        if len(data['network'])<3:
+        if len(data['network'])<2:
             is_valid = False
             flash("Network must be at least 3 characters","show")
         if len(data['description'])<3:

@@ -54,7 +54,7 @@
                     <div>
                         <label class="form-label my-2" for="name">User :</label>
                     </div>
-                    <select class="form-select" aria-label=".form-select-sm example" name="user_id" id="user">
+                    <select class="form-select" aria-label=".form-select-sm example" name="user_id" id="user" onchange="envoyerValeur()">
                         {% for user in users %}
                             <option value={{user.id}}>{{user.first_name}} {{user.last_name}}</option>
                         {% endfor %}
@@ -74,6 +74,5 @@
             </div>
         </div>
     <!-- </div> -->
-    
 </body>
 </html>
