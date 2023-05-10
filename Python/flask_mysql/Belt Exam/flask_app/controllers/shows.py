@@ -96,5 +96,16 @@ def delete_show(show_id):
             return redirect('/dashboard')
     return redirect('/')
 
+@app.route("/dashboard/<int:order>")
+def order_by(order):
+    if 'user_id' not in session:
+        return redirect('/')
+    by = ["title", "network", "release_date"]
+    all_shows = Show.get_all_by({'order' : by[order]})
+    logged_user = User.get_by_id({'id' : session['user_id']})
+    liked_shows_id = Like.get_shows_id_for_user({'id' : session['user_id']})
+    user_likes = Like.count_for_user({'user_id' : session['user_id']})
+    return render_template("dashboard.html", all_shows = all_shows, user = logged_user, liked_shows_id = liked_shows_id, user_likes=user_likes)
+
 
 

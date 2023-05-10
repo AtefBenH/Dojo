@@ -59,6 +59,22 @@ class Show :
             shows.append(show)
         return shows
     
+    #GET ALL ORDER BY
+    @classmethod
+    def get_all_by(cls, data):
+        query = """
+            SELECT * FROM shows 
+            JOIN users 
+            ON shows.user_id = users.id 
+            ORDER BY {order};
+            """
+        results = connectToMySQL(DATABASE).query_db(query.format(order=data['order']))
+        shows = []
+        for row in results:
+            show = cls(row)
+            shows.append(show)
+        return shows
+    
     # - GET ALL shows for One User
     @classmethod
     def get_shows_by_user(cls,data):
