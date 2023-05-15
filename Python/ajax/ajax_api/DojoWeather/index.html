@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="all">
+        <div class="nav">
+            <h1 class="nav-title">DojoWeather</h1>
+            <div class="nav-links">
+                <a href="#" id="sydney" onclick="getWeather(this)">Sidney</a>
+                <a href="#" id="chicago" onclick="getWeather (this)">Chicago</a>
+                <a href="#" id="beijing" onclick="getWeather (this)">Beijing</a>
+                <a href="#" id="alaska" onclick="getWeather (this)">Alaska</a>
+                <a href="#" id="merseille" onclick="getWeather (this)">Marseille</a>
+                <a href="#" id="toronto" onclick="getWeather (this)">Toronto</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="c-top">
+                <h1 class="city">San Jose</h1>
+                <div class="selectTemp">
+                    <label for="temperture">Show temperture in </label>
+                    <select name="temperture" id="temperture" onchange="convertTemperture(this)">
+                        <option value="C">°C</option>
+                        <option value="F">°F</option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <div class="week">
+                <div id="col1">
+                    <h3 class="current">Today</h3>
+                    <img class="url" src="assets/some_rain.png" alt="Some Rain">
+                    <p class="test">Some rain</p>
+                    <div class="temp">
+                        <div>
+                            <span class="max">10</span><span>°</span>
+                        </div>
+                        <div>
+                            <span class="min">10</span><span>°</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="col2">
+                    <h3>Tomorrow</h3>
+                    <img src="assets/some_sun.png" alt="Some Sun">
+                    <p>Some sun</p>
+                    <div class="temp">
+                        <div>
+                            <span class="max" >27</span><span>°</span>
+                        </div>
+                        <div>
+                            <span class="min">19</span><span>°</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="col3">
+                    <h3>Friday</h3>
+                    <img src="assets/some_clouds.png" alt="Some Clouds">
+                    <p>Some sun</p>
+                    <div class="temp">
+                        <div>
+                            <span class="max" >21</span><span>°</span>
+                        </div>
+                        <div>
+                            <span class="min">16</span><span>°</span>
+                        </div>   
+                    </div>
+                </div>
+                <div id="col4">
+                    <h3>Saturday</h3>
+                    <img src="assets/some_sun.png" alt="Some Sun">
+                    <p>Some sun</p>
+                    <div class="temp">
+                        <div>
+                            <span class="max" >26</span><span>°</span>
+                        </div>
+                        <div>
+                            <span class="min">21</span><span>°</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cookie">
+                <img src="assets/cookie.png" alt="Cookies">
+                <div class="message">
+                    <h3>Stop! Cookie time</h3>
+                    <p>
+                        We use cookies (sadly not the edible ones) to personalize <br>
+                        content and ads, to provide social medias features and to <br>
+                        analize our trafic. <a href="#">Read more...</a>
+                    </p>
+                </div>
+                <button class="btn" onclick="dismissCookies()">I Accept</button>
+            </div>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
