@@ -1,18 +1,14 @@
-function envoyerValeur() {
-    var liste = document.getElementById("user");
-    var valeurSelectionnee = liste.options[liste.selectedIndex].value;
+function getFriends(element){
+    console.log(element.innerHTML)
+    fetch('http://localhost:5000/notfriends/'+element.value)
+        .then(res =>  res.json())
+        .then(data => {
+            var friends = document.getElementById('friend');
+            friends.innerHTML = ""
+            for( let i = 0; i < data.length; i++){
+                friends.innerHTML = ('<option value='+data[i].id+'>'+data[i].first_name + ' ' +data[i].last_name +'</option>') + friends.innerHTML;
+                
+            }
+        })
 
-    // Effectuer une requête HTTP au serveur pour envoyer la valeur
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:5000", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("valeur=" + encodeURIComponent(valeurSelectionnee));
-
-    // Réagir à la réponse du serveur si nécessaire
-    xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        // Traitement de la réponse du serveur
-        console.log(xhr.responseText);
-    }
-    };
 }

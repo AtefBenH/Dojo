@@ -10,9 +10,9 @@ def index():
 def friendships():
     users = User.get_all_users()
     friendships = User.get_all_friendships()
-    # unfriends = User.get_user_non_friend({'id' : 2})
+    unfriends = User.get_user_non_friend({'id' : 1})
     # print('@'*30, friendships, '@'*30)
-    return render_template('friendships.html', users = users, friendships = friendships)
+    return render_template('friendships.html', users = users, friendships = friendships, unfriends = unfriends)
 
 
 @app.route('/users/create', methods=['POST'])
@@ -24,3 +24,7 @@ def create_user():
 def create_friendship():
     User.add_friendship(request.form)
     return redirect('/friendships')
+
+@app.route('/notfriends/<int:id>')
+def not_friends(id):
+    return jsonify(User.get_user_non_friend({'id' : id}))
