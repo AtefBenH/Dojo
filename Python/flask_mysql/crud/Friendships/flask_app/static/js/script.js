@@ -1,6 +1,6 @@
 function getFriends(element){
     console.log(element.innerHTML)
-    fetch('http://localhost:5000/notfriends/'+element.value)
+    fetch('/notfriends/'+element.value)
         .then(res =>  res.json())
         .then(data => {
             var friends = document.getElementById('friend');
