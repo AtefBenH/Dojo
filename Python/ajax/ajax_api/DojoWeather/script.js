@@ -42,8 +42,17 @@ async function getWeather(element)
         description = document.getElementsByClassName("test");
         max = document.getElementsByClassName('max');
         min = document.getElementsByClassName("min");
-        min[0].innerHTML = Math.round(data.main.temp_min)-273,15 ;
-        max[0].innerHTML = Math.round(data.main.temp_max)-273,15 ;
+        temp = document.getElementsByClassName("temperture");
+        console.log(temp)
+        if (temp[0].value == "C" ) {
+            min[0].innerHTML = Math.round(data.main.temp_min)-273,15 ; 
+            max[0].innerHTML = Math.round(data.main.temp_max)-273,15 ;
+        }
+        else {
+            min[0].innerHTML = ((Math.round(data.main.temp_min)-273,15)*9/5) + 32 ; 
+            max[0].innerHTML = ((Math.round(data.main.temp_max)-273,15)*9/5) + 32
+        }
+        
         description[0].innerHTML = data.weather[0].description.charAt(0).toUpperCase() + data.weather[0].description.slice(1);
         city = document.getElementsByClassName('city') ;
         current = document.getElementsByClassName('current') ;
@@ -51,4 +60,5 @@ async function getWeather(element)
         url[0].src = "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
         city[0].innerText = data.name;
         current[0].innerHTML = "Current";
+        // temp = getbyid
     }
