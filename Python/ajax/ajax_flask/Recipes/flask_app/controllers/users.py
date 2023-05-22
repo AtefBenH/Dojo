@@ -16,17 +16,10 @@ def index():
 def login():
     user_from_db = User.get_by_email({'email' : request.form['email']})
     if user_from_db :
-        if not bcrypt.check_password_hash(user_from_db.password, request.form['password']):
-            # flash("Invalid Email/Password","login")
-            # return redirect('/')
-            return jsonify({'message' : "noPass"})
-        else :
+        if bcrypt.check_password_hash(user_from_db.password, request.form['password']):
             session['user_id'] = user_from_db.id
-            # return redirect ('/dashboard')
             return jsonify({'message' : "success"})
-    # flash("Invalid Email/Password","login")
-    # return redirect('/')
-    return jsonify({'message' : "noEmail"})
+    return jsonify({'message' : "Error"})
 
 @app.route('/logout')
 def logout():
@@ -36,11 +29,12 @@ def logout():
 
 @app.route('/users/create', methods = ['POST'])
 def create_user():
-    if User.validate (request.form):
+    errors = User.validate(request.form)
+    if len(errors)==0:
         hashed_password = bcrypt.generate_password_hash(request.form['password'])
         data = {
                 **request.form, 'password':hashed_password
             }
         session['user_id'] = User.create(data)
-        return redirect('/dashboard')
-    return redirect('/')
+        return jsonify({'errors' : []})
+    return jsonify({'errors' : errors})

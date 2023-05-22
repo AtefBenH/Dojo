@@ -1,56 +1,67 @@
-document.getElementById('loginForm').addEventListener('submit', function (event) {
-  event.preventDefault();
 
-  // Récupérer les données du formulaire
-  var formData = new FormData(this);
+function login(){
+    loginForm = document.getElementById('loginForm');
 
-  // Effectuer la requête AJAX
-  fetch("http://localhost:5000/login", { method: 'POST', body: formData })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      if (data.message == "noPass"){
-        console.log('Wrong Password')
-      }
-      else if (data.message == "noEmail"){
-        console.log("Email doesn't Exist")
-      }
-      else {
-        console.log("Welcome")
-      }
-})
-    // loginForm.reset();
-    // location.reload();
-    // getUser(data);
-//       if (response.redirected) {
-//         // Le formulaire a été validé avec succès
-//         // Traiter la réponse ici
-//         console.log('OK')
-//         console.log(response);
-//       } else {
-//         // Le formulaire n'a pas été validé
-//         // Afficher un message d'erreur ou effectuer une autre action
-//         console.log('KO')
-//         console.log(response);
-//       }
-//     })
-//     .catch(function (error) {
-//       // Une erreur s'est produite lors de la requête AJAX
-//       console.log('Erreur AJAX:', error);
-//     });
-// });
-// function validate() {
-//   var loginForm = document.getElementById('loginForm');
-//   loginForm.onsubmit = function (e) {
-//     // "e" is the js event happening when we submit the form.
-//     // e.preventDefault() is a method that stops the default nature of javascript.
-//     e.preventDefault();
-//     // create FormData object from javascript and send it through a fetch post request.
-//     var form = new FormData(loginForm);
-//     // this how we set up a post request and send the form data.
-//     fetch("http://localhost:5000/login", { method: 'POST', body: form })
-//       .then(response => response.json())
-//       .then(data => getUser(data))
-//     loginForm.reset();
-//     // location.reload();
-//     // getUser(data);
-//   }}
+    var formData = new FormData(loginForm);
+
+    fetch("http://localhost:5000/login", { method: 'POST', body: formData })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message == "Error") {
+                // console.log("Wrong Password");
+                error = document.getElementById('logErrorMessage');
+                error.innerText = "Wrong Informations";
+                loginForm.reset();
+            }
+            else {
+                window.location.replace('/dashboard');
+            }
+        })
+}
+
+function registration()
+    {
+        regForm = document.getElementById('registrationForm');
+        var formData = new FormData(regForm);
+        fetch("http://localhost:5000/users/create", { method: 'POST', body: formData })
+        .then(response => response.json())
+        .then(data => {
+            error = document.getElementById('regErrorMessage');
+            error.innerHTML = ""
+            if (data.errors.length !=0){
+                for (key in data.errors) {
+                    error.innerHTML += data.errors[key] + '<br>';
+                    if (data.errors[key] == "First Name must contain at least 2 characters"){
+                        field = document.getElementById('first_name');
+                        // field.value = "";
+                        field.style.backgroundColor = "lightcoral";
+                    }
+                    if (data.errors[key] == "Last Name must contain at least 2 characters"){
+                        field = document.getElementById('last_name');
+                        // field.value = "";
+                        field.style.backgroundColor = "lightcoral";
+                    }
+                    if (data.errors[key] == "Email Already Exists" || data.errors[key] == "Email not valid"){
+                        field = document.getElementById('email');
+                        // field.value = "";
+                        field.style.backgroundColor = "lightcoral";
+                    }
+                    if (data.errors[key] == "Password Must Have More Than 8 Characters" || data.errors[key] == "Password Must Contain At Least A Number And An Uppercase Character"){
+                        field = document.getElementById('password');
+                        field.value = "";
+                        field.style.backgroundColor = "lightcoral";
+                        field = document.getElementById('confirm_password');
+                        field.value = "";
+                    }
+                    if (data.errors[key] == "Password and Confirmation Doesn't Match"){
+                        field = document.getElementById('confirm_password');
+                        field.value = "";
+                        field.style.backgroundColor = "lightcoral";
+                    }
+                }
+            }
+            else {
+                window.location.replace('/dashboard');
+            }
+        })
+    }

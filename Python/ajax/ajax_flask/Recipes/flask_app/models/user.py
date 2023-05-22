@@ -33,29 +33,25 @@ class User :
 
     @staticmethod
     def validate(data):
-        is_valid = True
+        errorMessages = []
         if len(data['first_name'])<2:
-            is_valid = False
-            flash("First Name must contain at least 2 characters","register")
+            errorMessages.append("First Name must contain at least 2 characters")
+
         if len(data['last_name'])<2:
-            is_valid = False
-            flash("Last Name must contain at least 2 characters","register")
+            errorMessages.append("Last Name must contain at least 2 characters")
+            
         if not EMAIL_REGEX.match(data['email']): 
-            is_valid = False
-            flash("Email not valid","register")
+            errorMessages.append("Email not valid")
         elif User.get_by_email({'email':data['email']}):
-            is_valid = False
-            flash("Email Already Exists","register")
+            errorMessages.append("Email Already Exists")
+
         if len(data['password']) <8:
-            is_valid = False
-            flash("Password Must Have More Than 8 Characters", "register")
+            errorMessages.append("Password Must Have More Than 8 Characters")
         elif not User.verify_password(data['password']) :
-            is_valid = False
-            flash("Password Must Contain At Least A Number And An Uppercase Character", "register")
+            errorMessages.append("Password Must Contain At Least A Number And An Uppercase Character")
         elif data['password']!= data['confirm_password']:
-            is_valid = False
-            flash("Password and Confirmation Doesn't Match", "register")
-        return is_valid
+            errorMessages.append("Password and Confirmation Doesn't Match")
+        return errorMessages
 
     # =======================Queries=======================
 

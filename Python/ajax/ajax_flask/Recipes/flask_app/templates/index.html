@@ -19,47 +19,35 @@
             </div>
             <div class="col-6 form-group flex justify-center mx-auto text-start bg-dark-subtle text-warning-emphasis m-2 p-3">
                 <h3>Register</h3>
-                {% with messages = get_flashed_messages(category_filter=["register"]) %}
-                    {% if messages %}
-                        {% for message in messages %}
-                            <p class="text-center text-danger">{{message}}</p>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-                <form action="/users/create" method="post">
+                <form id="registrationForm">
+                    <div id="regErrorMessage" class="text-bg-danger text-center"></div>
                     <div class="form-group pb-2">
-                        <label class="form-label my-2" for="firs_name" class="pb-2">First Name :</label>
-                        <input class="form-control" type="text" name="first_name">
+                        <label class="form-label my-2" for="first_name" class="pb-2">First Name :</label>
+                        <input id="first_name" class="form-control" type="text" name="first_name">
                     </div>
                     <div class="form-group pb-2">
                         <label class="form-label my-2" for="last_name" class="pb-2">Last Name :</label>
-                        <input class="form-control" type="text" name="last_name">
+                        <input id="last_name" class="form-control" type="text" name="last_name">
                     </div>
                     <div class="form-group pb-2">
                         <label class="form-label my-2" for="email" class="pb-2">Email :</label>
-                        <input class="form-control" type="text" name="email">
+                        <input id="email" class="form-control" type="text" name="email">
                     </div>
                     <div class="form-group pb-2">
                         <label class="form-label my-2" for="password" class="pb-2">Password :</label>
-                        <input class="form-control" type="password" name="password">
+                        <input id="password" class="form-control" type="password" name="password">
                     </div>
                     <div class="form-group pb-2">
                         <label class="form-label my-2" for="confirm_password" class="pb-2">Confirm Password :</label>
-                        <input class="form-control" type="password" name="confirm_password">
+                        <input id="confirm_password" class="form-control" type="password" name="confirm_password">
                     </div>
-                    <button type="submit" class="btn btn-sm btn-success">Add User</button>
+                    <button type="button" class="btn btn-sm btn-success" onclick="registration()">Add User</button>
                 </form>
             </div>
             <div class="col-4 form-group flex justify-center mx-auto text-start bg-dark-subtle text-warning-emphasis m-2 p-3">
                 <h3>Log In</h3>
-                {% with messages = get_flashed_messages(category_filter=["login"]) %}
-                    {% if messages %}
-                        {% for message in messages %}
-                            <p class="text-center text-danger">{{message}}</p>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-                <form class="form-range" method="post" id="loginForm">
+                <form class="form-range" id="loginForm">
+                    <div id="logErrorMessage" class="text-bg-danger text-center"></div>
                     <div class="form-group pb-2">
                         <label class="form-label my-2" for="email" class="pb-2">Email :</label>
                         <input class="form-control" type="text" name="email">
@@ -69,7 +57,7 @@
                         <input class="form-control" type="password" name="password">
                     </div>
                     <div class="mt-3">
-                        <button type="submit" class="btn btn-sm btn-primary">Login</button>
+                        <button type="button" class="btn btn-sm btn-primary" onclick="login()">Login</button>
                     </div>
                 </form>
             </div>
