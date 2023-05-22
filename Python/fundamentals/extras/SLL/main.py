@@ -37,8 +37,8 @@ my_list.print_values()
 print("-------------------------------------------")
 print(f"the lenght of the list is : {my_list.len}")
 print("-------------------------------------------")
-# Insert a value at the nth position
-my_list.insert_at("007", 2)
+#Insert a value at the nth position
+my_list.insert_at("007", 1)
 my_list.print_values()
 print("-------------------------------------------")
 print(f"the lenght of the list is : {my_list.len}")
