@@ -1,0 +1,9 @@
+from flask_app import app
+from flask import render_template, redirect, request, session, flash
+from flask_app.models.user import User
+from flask_app.models.book import Book
+
+
+@app.route('/')
+def add_show_users():
+    return render_template('books.html', books = Book.get_all_books())

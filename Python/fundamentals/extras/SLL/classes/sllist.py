@@ -100,6 +100,7 @@ class SLList :
                 new_node.next = pointer.next
                 pointer.next = new_node
                 return self
+            pointer = pointer.next
 
 
     def print_values(self) :
