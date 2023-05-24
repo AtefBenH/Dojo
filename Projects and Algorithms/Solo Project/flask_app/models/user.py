@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import DATABASE
-from flask_app.models import book
+from flask_app.models import book, blacklist
 import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 
@@ -35,31 +35,29 @@ class User:
         else:
             return False
 
-    # @staticmethod
-    # def validate(data):
-    #     is_valid = True
-    #     if len(data['first_name'])<2:
-    #         is_valid = False
-    #         flash("First Name must contain at least 2 characters","register")
-    #     if len(data['last_name'])<2:
-    #         is_valid = False
-    #         flash("Last Name must contain at least 2 characters","register")
-    #     if not EMAIL_REGEX.match(data['email']): 
-    #         is_valid = False
-    #         flash("Email not valid","register")
-    #     elif User.get_by_email({'email':data['email']}):
-    #         is_valid = False
-    #         flash("Email Already Exists","register")
-    #     if len(data['password']) <8:
-    #         is_valid = False
-    #         flash("Password Must Have More Than 8 Characters", "register")
-    #     elif not User.verify_password(data['password']) :
-    #         is_valid = False
-    #         flash("Password Must Contain At Least A Number And An Uppercase Character", "register")
-    #     elif data['password']!= data['confirm_password']:
-    #         is_valid = False
-    #         flash("Password and Confirmation Doesn't Match", "register")
-    #     return is_valid
+    @staticmethod
+    def validate(data):
+        errorMessages = []
+        if len(data['first_name'])<2:
+            errorMessages.append("First Name must contain at least 2 characters")
+
+        if len(data['last_name'])<2:
+            errorMessages.append("Last Name must contain at least 2 characters")
+            
+        if blacklist.Blacklist.get_by_email({'email':data['email']}):
+            errorMessages.append("This Email is Blacklisted")
+        elif not EMAIL_REGEX.match(data['email']): 
+            errorMessages.append("Email not valid")
+        elif User.get_by_email({'email':data['email']}):
+            errorMessages.append("Email Already Exists")
+
+        if len(data['password']) <8:
+            errorMessages.append("Password Must Have More Than 8 Characters")
+        elif not User.verify_password(data['password']) :
+            errorMessages.append("Password Must Contain At Least A Number And An Uppercase Character")
+        elif data['password']!= data['confirm_password']:
+            errorMessages.append("Password and Confirmation Doesn't Match")
+        return errorMessages
 
     # =======================Queries=======================
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <script src="{{  url_for('static', filename='js/script.js')}}" async></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="container p-2 m-auto" style="background-color: hsl(0, 0%, 96%)">
+        <div class="d-flex justify-content-between m-5">
+            <h1>Welcome {{user.first_name}}! <span class="text-success fs-5">Liked Books : <span id="count">{{ user_likes[0]['likes']}}</span></span></h1>
+            <div>
+                <a href="/my_books" class="btn btn-success btn-md">Posted Books</a>
+                <a href="/logout" class="btn btn-danger btn-md">Logout</a>
+            </div>
+        </div>
+        <div class="row col-10 mx-auto my-5 d-flex justify-content-between">
+            <div class="col-6">
+                <h3>Add a New Book</h3>
+                <div id="addBookErrorMessage" class="text-bg-danger text-center mb-3"></div>
+                <form id="addBookForm">
+                    <div class="form-outline mb-4">
+                        <input name="title" type="text" id="title" class="form-control form-control-lg"
+                            placeholder="Title" />
+                        <label class="form-label" for="title">Title</label>
+                    </div>
+    
+                    <div class="form-outline mb-4">
+                        <input name="author" type="text" id="author" class="form-control form-control-lg"
+                            placeholder="Author" />
+                        <label class="form-label" for="author">Author</label>
+                    </div>
+    
+                    <div class="form-outline mb-4">
+                        <textarea name="description" id="description" 
+                        class="form-control form-control-lg" 
+                        rows="5" placeholder="Description"></textarea>
+                        <label class="form-label" for="description">Description</label>
+                    </div>
+    
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="button" class="btn btn-primary btn-lg"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;" onclick="validateBook()">Add</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4">
+                <h3>All Books</h3>
+                <div>
+                    {% for book in all_books%}
+                    <div class="pb-3">
+                        <div>
+                            {% if book.id in posted_books_id %}
+                                <a href="/books/{{book.id}}/edit">{{ book.title }}</a>
+                            {% else %}
+                                <a href="/books/{{book.id}}/view">{{ book.title }}</a>
+                            {% endif %}
+                        </div>
+                        <div>
+                            (Posted By {{ book.creator }})
+                        </div>
+                        <div>
+                            {% if book.id in liked_books_id %}
+                                <span class="fst-italic">This is one of your favorites</span>
+                            {% else %}
+                                <button type="button" value="{{book.id}}" class=" btn btn-link btn-sm btn-outline-info mt-1" onclick="createLike(this)">Like</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
