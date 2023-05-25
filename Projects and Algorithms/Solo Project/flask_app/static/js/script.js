@@ -1,22 +1,23 @@
-function login(){
-    loginForm = document.getElementById('loginForm');
+function login()
+    {
+        loginForm = document.getElementById('loginForm');
 
-    var formData = new FormData(loginForm);
+        var formData = new FormData(loginForm);
 
-    fetch("http://localhost:5000/login", { method: 'POST', body: formData })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message == "Error") {
-                // console.log("Wrong Password");
-                error = document.getElementById('logErrorMessage');
-                error.innerText = "Wrong Informations";
-                loginForm.reset();
-            }
-            else {
-                window.location.replace('/dashboard');
-            }
-        })
-}
+        fetch("http://localhost:5000/login", { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message == "Error") {
+                    // console.log("Wrong Password");
+                    error = document.getElementById('logErrorMessage');
+                    error.innerText = "Wrong Informations";
+                    loginForm.reset();
+                }
+                else {
+                    window.location.replace('/dashboard');
+                }
+            })
+    }
 
 function registration()
     {
@@ -120,4 +121,60 @@ function createLike(element)
                 count = parseInt(document.getElementById('count').innerText);
                 document.getElementById('count').innerText = count+1;
         })
+    }
+
+function updateBook(element)
+    {
+        updateForm = document.getElementById('updateBookForm');
+
+        var formData = new FormData(updateForm);
+
+        let book_id = element.value;
+        fetch("/books/"+book_id+"/update", { method: 'POST', body: formData })
+        .then(response => response.json())
+        .then(data => {
+            error = document.getElementById('updateBookError');
+            error.innerHTML = ""
+            if (data.errors.length !=0){
+                for (key in data.errors) {
+                    error.innerHTML += data.errors[key] + '<br>';
+                    if (data.errors[key] == "Book Must Have a Title"){
+                        field = document.getElementById('title');
+                        field.style.backgroundColor = "lightcoral";
+                    }
+                    if (data.errors[key] == "Author must contain at least 2 characters"){
+                        field = document.getElementById('author');
+                        field.style.backgroundColor = "lightcoral";
+                    }
+                    if (data.errors[key] == "Description must contain at least 5 characters"){
+                        field = document.getElementById('description');
+                        field.style.backgroundColor = "lightcoral";
+                    }
+                }
+            }
+            else {
+                window.location.replace('/dashboard');
+            }
+        })
+    }
+
+function deleteLike(element)
+    {
+        let book_id = element.value;
+        fetch("/likes/"+book_id+"/delete")
+        .then(response => response.json())
+        .then(data => {
+            if (data.message){
+                parent = element.parentNode;
+                parent.remove();
+                element.remove();
+                count = parseInt(document.getElementById('count').innerText);
+                document.getElementById('count').innerText = count-1;
+            }
+        })
+    }
+
+function getBookInfo(element)
+    {
+        console.log(element.innerText);
     }

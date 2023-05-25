@@ -15,6 +15,17 @@ def dashboard():
         return render_template('dashboard.html', user = logged_user, all_books = all_books, liked_books_id = liked_books_id, user_likes=user_likes, posted_books_id=posted_books_id)
     return redirect('/')
 
+@app.route('/books/<int:book_id>/view')
+def show_book(book_id):
+    if 'user_id' in session:
+        logged_user = User.get_by_id({'id' : session['user_id']})
+        book = Book.get_by_id({'id' : book_id})
+        creator = User.get_by_id({'id' : book.user_id})
+        lovers = Book.get_book_with_fav({'id' : book_id})
+        user_likes = Like.count_for_user({'user_id' : session['user_id']})
+        return render_template('view_book.html', book = book, user = logged_user, lovers=lovers, user_likes=user_likes, creator=creator)
+    return redirect('/')
+
 @app.route('/books/create', methods=['POST'])
 def create_book():
     errors = Book.validate(request.form)
@@ -28,9 +39,12 @@ def create_book():
 def edit_book(book_id):
     if 'user_id' in session:
         book = Book.get_by_id({'id' : book_id})
+        user = User.get_by_id({'id' : session['user_id']})
+        lovers = Book.get_book_with_fav({'id' : book_id})
+        user_likes = Like.count_for_user({'user_id' : session['user_id']})
         if book:
-            if Book.user_id == session['user_id'] :
-                return render_template('edit_book.html', book = book)
+            if book.user_id == session['user_id'] :
+                return render_template('edit_book.html', book = book, user=user, lovers=lovers, user_likes=user_likes)
             else :
                 hacker = User.get_by_id({'id' : session['user_id']})
                 if hacker.warning<1 : #TRUE MEANS IT'S HIS FIRST TIME
@@ -41,4 +55,41 @@ def edit_book(book_id):
                 return redirect('/logout')
         else :
             return render_template('404.html')
+    return redirect('/')
+
+@app.route('/books/<int:book_id>/update', methods = ['POST'])
+def update_book(book_id):
+    errors = Book.validate(request.form)
+    if len(errors)>0:
+        return jsonify({'errors' : errors})
+    data = {
+        **request.form, 'user_id' : session['user_id'], 'id' : book_id
+            }
+    Book.update(data)
+    return jsonify({'errors' : []})
+
+@app.route('/books/<int:book_id>/delete')
+def delete_book(book_id):
+    if 'user_id' in session:
+        book_to_delete = Book.get_by_id({'id' : book_id})
+        if book_to_delete:
+            if book_to_delete.user_id == session['user_id'] :
+                Like.delete({'book_id' : book_id})
+                Book.delete({'id' : book_id})
+                return redirect('/dashboard')
+            hacker = User.get_by_id({'id' : session['user_id']})
+            if hacker.warning<1 : #TRUE MEANS IT'S HIS FIRST TIME
+                User.add_warning({'id' : session['user_id']}) #ADD A WARNING
+                ip_address = request.remote_addr
+                return render_template('hackAttempt.html', hacker=hacker, book_id = book_id, ip_address=ip_address)
+            #LOGOUT THE HACKER
+            return redirect('/logout')
+        else:
+            hacker = User.get_by_id({'id' : session['user_id']})
+            if hacker.warning<1 : #TRUE MEANS IT'S HIS FIRST TIME
+                User.add_warning({'id' : session['user_id']}) #ADD A WARNING
+                ip_address = request.remote_addr
+                return render_template('hackAttempt.html', hacker=hacker, book_id = book_id, ip_address=ip_address)
+            #LOGOUT THE HACKER
+            return redirect('/logout')
     return redirect('/')

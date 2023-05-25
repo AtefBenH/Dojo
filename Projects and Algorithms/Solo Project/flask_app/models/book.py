@@ -33,7 +33,7 @@ class Book:
     @classmethod
     def get_all(cls):
         query = """
-            SELECT * FROM books JOIN users ON books.user_id = users.id;
+            SELECT * FROM books JOIN users ON books.user_id = users.id ORDER BY title;
         """
         results = connectToMySQL(DATABASE).query_db(query)
         books = []
@@ -66,8 +66,17 @@ class Book:
         return posted_books_id
 
     @classmethod
+    def update(cls, data):
+        query = """
+            UPDATE books SET 
+            user_id = %(user_id)s, title = %(title)s, author = %(author)s, description = %(description)s 
+            WHERE id = %(id)s;
+        """
+        return connectToMySQL(DATABASE).query_db(query, data)
+
+    @classmethod
     def get_book_with_fav(cls, data):
-        query = "SELECT * FROM books LEFT JOIN likes ON likes.book_id = books.id LEFT JOIN users ON likes.user_id = users.id WHERE books.id = %(id)s;"
+        query = "SELECT * FROM books LEFT JOIN likes ON likes.book_id = books.id LEFT JOIN users ON likes.user_id = users.id WHERE books.id = %(id)s ORDER BY users.first_name;"
         results = connectToMySQL(DATABASE).query_db(query , data)
 
         book = cls(results[0])
@@ -77,6 +86,9 @@ class Book:
                 "id" : row_from_db["users.id"],
                 "first_name" : row_from_db["first_name"],
                 "last_name" : row_from_db["last_name"],
+                "email" : row_from_db["email"],
+                "password" : row_from_db["password"],
+                "warning" : row_from_db["warning"],
                 "created_at" : row_from_db["users.created_at"],
                 "updated_at" : row_from_db["users.updated_at"]
             }
@@ -98,3 +110,8 @@ class Book:
         for row in results:
             unfav_books.append(cls(row))
         return unfav_books
+    
+    @classmethod
+    def delete(cls, data):
+        query = "DELETE FROM books WHERE id = %(id)s;"
+        return connectToMySQL(DATABASE).query_db(query, data)
