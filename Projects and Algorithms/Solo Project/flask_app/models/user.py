@@ -106,31 +106,32 @@ class User:
     
     @classmethod
     def get_user_with_fav(cls, data):
-        query = "SELECT * FROM users LEFT JOIN fav_books ON fav_books.user_id = users.id LEFT JOIN books ON fav_books.book_id = books.id WHERE users.id = %(id)s;"
+        query = "SELECT * FROM users LEFT JOIN likes ON likes.user_id = users.id LEFT JOIN books ON likes.book_id = books.id WHERE users.id = %(id)s;"
         results = connectToMySQL(DATABASE).query_db(query , data)
-        # print('~~'*20, results, '~~'*20)
         user = cls(results[0])
         for row_from_db in results:
             book_data = {
                 "id" : row_from_db["books.id"],
-                "title" : row_from_db["title"],
-                "num_of_pages" : row_from_db["num_of_pages"],
+                "user_id" : row_from_db['user_id'],
+                "title" : row_from_db['title'],
+                "author" : row_from_db['author'],
+                "description" : row_from_db['description'],
                 "created_at" : row_from_db["books.created_at"],
                 "updated_at" : row_from_db["books.updated_at"]
             }
             user.fav_books.append(book.Book(book_data))
         return user
     
-    #Add user's Favorite Book to fav_books table
+    #Add user's Favorite Book to likes table
     @classmethod
     def add_book(cls, data):
-        query = "INSERT INTO fav_books (book_id, user_id) VALUES (%(book_id)s, %(user_id)s);"
+        query = "INSERT INTO likes (book_id, user_id) VALUES (%(book_id)s, %(user_id)s);"
         return connectToMySQL(DATABASE).query_db(query, data)
     
     #Get the users that didn't like a specefic book
     @classmethod
     def unfav_users(cls,data):
-        query = "SELECT * FROM users WHERE users.id NOT IN ( SELECT user_id FROM fav_books WHERE book_id = %(id)s );"
+        query = "SELECT * FROM users WHERE users.id NOT IN ( SELECT user_id FROM likes WHERE book_id = %(id)s );"
         unfav_users = []
         results = connectToMySQL(DATABASE).query_db(query,data)
         for res in results:

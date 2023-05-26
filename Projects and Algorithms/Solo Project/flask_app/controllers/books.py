@@ -8,22 +8,31 @@ from flask_app.models.like import Like
 def dashboard():
     if 'user_id' in session:
         all_books = Book.get_all()
-        posted_books_id = Book.get_books_by_user({'id' : session['user_id']})
+        posted_books_id = Book.get_books_id_by_user({'id' : session['user_id']})
         logged_user = User.get_by_id({'id' : session['user_id']})
         liked_books_id = Like.get_books_id_for_user({'id' : session['user_id']})
         user_likes = Like.count_for_user({'user_id' : session['user_id']})
-        return render_template('dashboard.html', user = logged_user, all_books = all_books, liked_books_id = liked_books_id, user_likes=user_likes, posted_books_id=posted_books_id)
+        liked_books = User.get_user_with_fav({'id' : session['user_id']})
+        return render_template('dashboard.html', user = logged_user, all_books = all_books, liked_books_id = liked_books_id, user_likes=user_likes, posted_books_id=posted_books_id, liked_books=liked_books)
     return redirect('/')
 
+@app.route('/book/api', methods=['POST'])
+def api_book():
+    session['api_info'] = request.get_json()
+    return jsonify({'message' : 'success'})
+
 @app.route('/books/<int:book_id>/view')
-def show_book(book_id):
+def view_book(book_id):
     if 'user_id' in session:
-        logged_user = User.get_by_id({'id' : session['user_id']})
         book = Book.get_by_id({'id' : book_id})
-        creator = User.get_by_id({'id' : book.user_id})
-        lovers = Book.get_book_with_fav({'id' : book_id})
-        user_likes = Like.count_for_user({'user_id' : session['user_id']})
-        return render_template('view_book.html', book = book, user = logged_user, lovers=lovers, user_likes=user_likes, creator=creator)
+        if book:
+            logged_user = User.get_by_id({'id' : session['user_id']})
+            creator = User.get_by_id({'id' : book.user_id})
+            lovers = Book.get_book_with_fav({'id' : book_id})
+            user_likes = Like.count_for_user({'user_id' : session['user_id']})
+            liked_books = User.get_user_with_fav({'id' : session['user_id']})
+            api_info = session['api_info']
+            return render_template('view_book.html', liked_books=liked_books, api=api_info, book = book, user = logged_user, lovers=lovers, user_likes=user_likes, creator=creator)
     return redirect('/')
 
 @app.route('/books/create', methods=['POST'])
@@ -35,16 +44,25 @@ def create_book():
         return jsonify({'errors' : []})
     return jsonify({'errors' : errors})
 
+@app.route('/my_books')
+def show_books():
+    if 'user_id' in session:
+        posted_books = Book.get_books_by_user({'id' : session['user_id']})
+        logged_user = User.get_by_id({'id':session['user_id']})
+        return render_template('my_books.html', posted_books = posted_books, user = logged_user)
+    return redirect('/')
+
 @app.route('/books/<int:book_id>/edit')
 def edit_book(book_id):
     if 'user_id' in session:
         book = Book.get_by_id({'id' : book_id})
         user = User.get_by_id({'id' : session['user_id']})
+        liked_books = User.get_user_with_fav({'id' : session['user_id']})
         lovers = Book.get_book_with_fav({'id' : book_id})
         user_likes = Like.count_for_user({'user_id' : session['user_id']})
         if book:
             if book.user_id == session['user_id'] :
-                return render_template('edit_book.html', book = book, user=user, lovers=lovers, user_likes=user_likes)
+                return render_template('edit_book.html',liked_books=liked_books, book = book, user=user, lovers=lovers, user_likes=user_likes)
             else :
                 hacker = User.get_by_id({'id' : session['user_id']})
                 if hacker.warning<1 : #TRUE MEANS IT'S HIS FIRST TIME

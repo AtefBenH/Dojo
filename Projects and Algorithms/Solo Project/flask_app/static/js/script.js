@@ -1,22 +1,27 @@
+async function refresh()
+    {
+        location.reload();
+    }
+
 function login()
     {
         loginForm = document.getElementById('loginForm');
-
         var formData = new FormData(loginForm);
 
         fetch("http://localhost:5000/login", { method: 'POST', body: formData })
             .then(response => response.json())
             .then(data => {
-                if (data.message == "Error") {
-                    // console.log("Wrong Password");
-                    error = document.getElementById('logErrorMessage');
-                    error.innerText = "Wrong Informations";
-                    loginForm.reset();
-                }
-                else {
-                    window.location.replace('/dashboard');
-                }
-            })
+                if (data.message == "Error") 
+                    {
+                        error = document.getElementById('logErrorMessage');
+                        error.innerText = "Wrong Informations";
+                        loginForm.reset();
+                    }
+                else 
+                    {
+                        window.location.replace('/dashboard');
+                    }
+            });
     }
 
 function registration()
@@ -121,6 +126,9 @@ function createLike(element)
                 count = parseInt(document.getElementById('count').innerText);
                 document.getElementById('count').innerText = count+1;
         })
+        setTimeout(() => {
+            location.reload();
+        }, 100);
     }
 
 function updateBook(element)
@@ -174,7 +182,47 @@ function deleteLike(element)
         })
     }
 
-function getBookInfo(element)
+async function getBookInfo(element)
     {
-        console.log(element.innerText);
-    }
+        let book_id = element.getAttribute("data-value1");
+        let book_title = element.getAttribute("data-value2");
+        let book_author = element.getAttribute("data-value3");
+        console.log(book_author);
+        let response = await fetch("https://openlibrary.org/search.json?title="+book_title+"&author="+book_author);
+        let data = await response.json();
+        let isbn = data.docs[0].isbn[0];
+        first_publish_year=data.docs[0].first_publish_year;
+        rating = data.docs[0].ratings_average.toPrecision(3);
+        console.log(rating);
+        subjects = [];
+        for (let i = 0; i < 3; i++)
+            {
+                subjects.push(data.docs[0].subject[i].charAt(0).toUpperCase() + data.docs[0].subject[i].slice(1));
+            }
+        response  = await fetch("https://covers.openlibrary.org/b/isbn/"+isbn+"-M.jpg");
+        if (response.status==200)
+            {
+                imgSrc = response.url;
+            }
+        else 
+            {
+                imgSrc = "flask_app/static/img/notFound.png"
+            }
+        data = {
+            'first_publish_year' : first_publish_year,
+            'rating' : rating,
+            'subjects' : subjects,
+            'imgSrc' : imgSrc
+        }
+    fetch("http://localhost:5000/book/api", {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+        .then(data => {
+            window.location.replace("/books/"+book_id+"/view");
+            // console.log("DATA : ", data);
+        });
+}

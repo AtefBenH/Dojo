@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import DATABASE
-from flask_app.models import user
+from flask_app.models import user, book
 class Book:
     def __init__( self , data ):
         self.id = data['id']
@@ -10,7 +10,6 @@ class Book:
         self.description = data['description']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.user_fav = []
     
     @staticmethod
     def validate(data):
@@ -57,6 +56,26 @@ class Book:
     @classmethod
     def get_books_by_user(cls, data):
         query = """
+            SELECT * FROM books JOIN users ON books.user_id = users.id WHERE users.id = %(id)s;
+        """
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        posted_books = []
+        for row_from_db in results:
+            book_data = {
+                "id" : row_from_db["id"],
+                "user_id" : row_from_db["users.id"],
+                "title" : row_from_db["title"],
+                "author" : row_from_db["author"],
+                "description" : row_from_db["description"],
+                "created_at" : row_from_db["created_at"],
+                "updated_at" : row_from_db["updated_at"]
+            }
+            posted_books.append(book.Book(book_data))
+        return posted_books
+    
+    @classmethod
+    def get_books_id_by_user(cls, data):
+        query = """
             SELECT books.id FROM books JOIN users ON books.user_id = users.id WHERE users.id = %(id)s;
         """
         results = connectToMySQL(DATABASE).query_db(query, data)
@@ -76,24 +95,23 @@ class Book:
 
     @classmethod
     def get_book_with_fav(cls, data):
-        query = "SELECT * FROM books LEFT JOIN likes ON likes.book_id = books.id LEFT JOIN users ON likes.user_id = users.id WHERE books.id = %(id)s ORDER BY users.first_name;"
+        query = "SELECT * FROM books JOIN likes ON likes.book_id = books.id LEFT JOIN users ON likes.user_id = users.id WHERE books.id = %(id)s ORDER BY users.first_name;"
         results = connectToMySQL(DATABASE).query_db(query , data)
-
-        book = cls(results[0])
-        for row_from_db in results:
-
-            user_data = {
-                "id" : row_from_db["users.id"],
-                "first_name" : row_from_db["first_name"],
-                "last_name" : row_from_db["last_name"],
-                "email" : row_from_db["email"],
-                "password" : row_from_db["password"],
-                "warning" : row_from_db["warning"],
-                "created_at" : row_from_db["users.created_at"],
-                "updated_at" : row_from_db["users.updated_at"]
-            }
-            book.user_fav.append(user.User(user_data))
-        return book
+        lovers = []
+        if (len(results)>0):
+            for row_from_db in results:
+                user_data = {
+                    "id" : row_from_db["users.id"],
+                    "first_name" : row_from_db["first_name"],
+                    "last_name" : row_from_db["last_name"],
+                    "email" : row_from_db["email"],
+                    "password" : row_from_db["password"],
+                    "warning" : row_from_db["warning"],
+                    "created_at" : row_from_db["users.created_at"],
+                    "updated_at" : row_from_db["users.updated_at"]
+                }
+                lovers.append(user.User(user_data))
+        return lovers
     
     #Add user to the list that favored the Book
     @classmethod
