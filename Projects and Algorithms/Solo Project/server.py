@@ -1,5 +1,5 @@
 from flask_app import app
-from flask_app.controllers import users, books, likes
+from flask_app.controllers import users, books, likes, comments
 from flask import request, render_template
 
 # CATCH ANY UNDEFINED ROUTE

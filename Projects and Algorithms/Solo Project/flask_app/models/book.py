@@ -35,11 +35,14 @@ class Book:
             SELECT * FROM books JOIN users ON books.user_id = users.id ORDER BY title;
         """
         results = connectToMySQL(DATABASE).query_db(query)
-        books = []
-        for row in results:
-            book = cls(row)
-            book.creator = f"{row['first_name']} {row['last_name']}"
-            books.append(book)
+        books =[]
+        if results:
+            for row in results:
+                book = cls(row)
+                book.creator = f"{row['first_name']} {row['last_name']}"
+                books.append(book)
+        else:
+            books = 'No Books Yet'
         return books
     
     # - GET ONE BY ID
@@ -80,8 +83,9 @@ class Book:
         """
         results = connectToMySQL(DATABASE).query_db(query, data)
         posted_books_id = []
-        for row in results:
-            posted_books_id.append(row['id'])
+        if results:
+            for row in results:
+                posted_books_id.append(row['id'])
         return posted_books_id
 
     @classmethod
@@ -133,3 +137,34 @@ class Book:
     def delete(cls, data):
         query = "DELETE FROM books WHERE id = %(id)s;"
         return connectToMySQL(DATABASE).query_db(query, data)
+    
+    #DELETE A BOOK SINCE POSTER IS DELETED
+    @classmethod
+    def deleteByUser(cls, data):
+        query = "DELETE FROM books WHERE user_id = %(user_id)s;"
+        return connectToMySQL(DATABASE).query_db(query, data)
+    
+    #SEARCH BOOK BY FILTER (TITLE, AUTHOR, DESCRIPTION)
+    @classmethod
+    def search(cls, data):
+        query = "SELECT * FROM books WHERE {filter} LIKE %(search)s;"
+        results = connectToMySQL(DATABASE).query_db(query.format(filter=data['filter']), data)
+        books = []
+        for row in results:
+            book = cls(row)
+            books.append(book)
+        return books
+    
+    #SEARCH BOOK BY POSTER
+    @classmethod
+    def searchByPoster(cls, data):
+        query = """SELECT * FROM books 
+            JOIN users ON books.user_id = users.id 
+            WHERE users.first_name LIKE %(search)s OR users.last_name LIKE %(search)s;
+            """
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        books = []
+        for row in results:
+            book = cls(row)
+            books.append(book)
+        return books

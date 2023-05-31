@@ -110,16 +110,17 @@ class User:
         results = connectToMySQL(DATABASE).query_db(query , data)
         user = cls(results[0])
         for row_from_db in results:
-            book_data = {
-                "id" : row_from_db["books.id"],
-                "user_id" : row_from_db['user_id'],
-                "title" : row_from_db['title'],
-                "author" : row_from_db['author'],
-                "description" : row_from_db['description'],
-                "created_at" : row_from_db["books.created_at"],
-                "updated_at" : row_from_db["books.updated_at"]
-            }
-            user.fav_books.append(book.Book(book_data))
+            if row_from_db["books.id"]:
+                book_data = {
+                    "id" : row_from_db["books.id"],
+                    "user_id" : row_from_db['user_id'],
+                    "title" : row_from_db['title'],
+                    "author" : row_from_db['author'],
+                    "description" : row_from_db['description'],
+                    "created_at" : row_from_db["books.created_at"],
+                    "updated_at" : row_from_db["books.updated_at"]
+                }
+                user.fav_books.append(book.Book(book_data))
         return user
     
     #Add user's Favorite Book to likes table
@@ -137,3 +138,8 @@ class User:
         for res in results:
             unfav_users.append(cls(res))
         return unfav_users
+    
+    @classmethod
+    def delete(cls, data):
+        query = "DELETE FROM users WHERE id = %(id)s;"
+        return connectToMySQL(DATABASE).query_db(query, data)

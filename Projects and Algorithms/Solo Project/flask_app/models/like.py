@@ -34,10 +34,16 @@ class Like:
             liked_books_id.append(row['id'])
         return liked_books_id
     
-    #DELETE A LIKE SINCE SHOW DELETED
+    #DELETE A LIKE SINCE BOOK DELETED
     @classmethod
-    def delete(cls, data):
+    def deleteByBook(cls, data):
         query = "DELETE FROM likes WHERE book_id = %(book_id)s;"
+        return connectToMySQL(DATABASE).query_db(query, data)
+    
+    #DELETE A LIKE SINCE USER DELETED
+    @classmethod
+    def deleteByUser(cls, data):
+        query = "DELETE FROM likes WHERE user_id = %(user_id)s;"
         return connectToMySQL(DATABASE).query_db(query, data)
 
     #DELETE A LIKE
@@ -46,9 +52,9 @@ class Like:
         query = "DELETE FROM likes WHERE user_id = %(user_id)s AND book_id = %(book_id)s;"
         return connectToMySQL(DATABASE).query_db(query, data)
     
-    #COUNT OF LIKES FOR ONE SHOW
+    #COUNT OF LIKES FOR ONE BOOK
     @classmethod
-    def count_for_show(cls, data):
+    def count_for_book(cls, data):
         query = "SELECT count(*) AS likes FROM likes WHERE book_id = %(book_id)s;"
         result = connectToMySQL(DATABASE).query_db(query, data)
         return result
