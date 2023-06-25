@@ -24,7 +24,13 @@ function fetchSuper(e){
                     for (i=0; i<data.results.length; i++){
                         var searchResultDiv = document.getElementById('searchResult');
                         var div = document.createElement("div");
-                        div.classList.add("col-"+(12/data.results.length));
+                        if(data.results.length<5){
+                            div.classList.add("col-"+(12/data.results.length));
+                        }
+                        else{
+                            div.classList.add("col-4");
+                        }
+                        
                         div.classList.add("d-flex");
                         div.classList.add("justify-content-center");
                         searchResultDiv.appendChild(div);
@@ -48,8 +54,11 @@ function fetchSuper(e){
                         if (data.results[i].biography['alignment'] == 'good'){
                             span.classList.add("text-success");
                         }
-                        else {
+                        else if (data.results[i].biography['alignment'] == 'bad'){
                             span.classList.add("text-danger");
+                        }
+                        else{
+                            span.classList.add("text-secondary");
                         }
                         span.innerText = data.results[i].biography['alignment'].toUpperCase();
                         body.insertBefore(span, name.nextSibling);
